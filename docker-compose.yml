@@ -9,6 +9,5 @@ services:
       - ".:/app"
     environment:
       - MODULE_NAME=main
-      - VARIABLE_NAME=fast_api
     
 
