@@ -3,7 +3,12 @@ version: "3"
 services:
   fast-api:
     build: .
-    command: sh -c "uvicorn fast_api.main:app --host=0.0.0.0"
     ports: 
       - "8000:8000"
+    volumes:
+      - ".:/app"
+    environment:
+      - MODULE_NAME=main
+      - VARIABLE_NAME=fast_api
+    
 
