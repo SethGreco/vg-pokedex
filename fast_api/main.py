@@ -7,7 +7,7 @@ from fastapi.exceptions import RequestValidationError
 
 app = FastAPI()
 
-app.include_router(health.router)
+app.include_router(health.router, prefix="/api/v1", tags=["Health"])
 
 
 @app.get("/")
