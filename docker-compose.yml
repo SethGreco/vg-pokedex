@@ -14,5 +14,16 @@ services:
       interval: 30s
       timeout: 10s
       retries: 2
+  
+  postgres:
+    image: "postgres:latest"
+    container_name: db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+    
     
 
