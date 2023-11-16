@@ -9,4 +9,9 @@ I choose fast api to learn and keep things lite.
 
 ## Docker
 
-The application is containerized 
+The application is containerized and can be run with docker-compose
+The docker-compose file should contain
+- fastapi : Backend
+- postgres: database
+
+
