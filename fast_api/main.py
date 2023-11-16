@@ -4,8 +4,10 @@ from fast_api.routers import health
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
+from fast_api.db.database import lifespan
 
-app = FastAPI()
+
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(health.router, prefix="/api/v1", tags=["Health"])
 
