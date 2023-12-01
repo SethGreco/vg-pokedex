@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request, status
 from fastapi.openapi.utils import get_openapi
-from fast_api.routers import health, pokedex
+from fast_api.routers import health, pokedex, title
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
@@ -17,6 +17,7 @@ app = FastAPI(lifespan=lifespan,
 
 app.include_router(health.router, prefix="/api/v1", tags=["Health"])
 app.include_router(pokedex.router, prefix="/api/v1", tags=["Pokedex"])
+app.include_router(title.router, prefix="/api/v1", tags=["Title"])
 
 
 

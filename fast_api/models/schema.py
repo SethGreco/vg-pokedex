@@ -11,6 +11,15 @@ class Pokemon(BaseModel):
     area: Optional[str] 
 
 
+class PokemonShort(BaseModel):
+    number: int
+    name: str
+
+class Title(BaseModel):
+    id: int
+    pokemonGame: str
+
+
 class Error(BaseModel):
     loc: Optional[List[str]] = None
     msg: str
