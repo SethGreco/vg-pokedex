@@ -30,4 +30,3 @@ class ErrorResponse(BaseModel):
 
 class Message(BaseModel):
     detail: str
-

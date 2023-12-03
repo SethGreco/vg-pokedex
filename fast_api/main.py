@@ -8,7 +8,6 @@ from fast_api.db.database import lifespan
 from fast_api.models.schema import ErrorResponse
 
 
-
 app = FastAPI(lifespan=lifespan,
               title="Filler", 
               description="Filler",
@@ -18,7 +17,6 @@ app = FastAPI(lifespan=lifespan,
 app.include_router(health.router, prefix="/api/v1", tags=["Health"])
 app.include_router(pokedex.router, prefix="/api/v1", tags=["Pokedex"])
 app.include_router(title.router, prefix="/api/v1", tags=["Title"])
-
 
 
 @app.exception_handler(RequestValidationError)
@@ -33,20 +31,22 @@ async def validation_exception_handler(req: Request, exec: RequestValidationErro
 
 
 def custom_openapi():
-    if not app.openapi_schema:
-        app.openapi_schema = get_openapi(
-            title=app.title,
-            version=app.version,
-            description=app.description,
-            routes=app.routes,
-        )
-        for _, method_item in app.openapi_schema.get('paths').items():
-            for _, param in method_item.items():
-                responses = param.get('responses')
-                # remove 422 response, also can remove other status code
-                if '422' in responses:
-                    del responses['422']
+
+    if app.openapi_schema:
         return app.openapi_schema
+    app.openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes
+    )
+    for _, method_item in app.openapi_schema.get('paths').items():
+        for _, param in method_item.items():
+            responses = param.get('responses')
+            # remove 422 response, also can remove other status code
+            if '422' in responses:
+                del responses['422']
+    return app.openapi_schema
 
 
 app.openapi = custom_openapi
