@@ -27,8 +27,7 @@ services:
       POSTGRES_PASSWORD: pokemon
       POSTGRES_USER: trainer
     volumes:
-      - ./resource/db_create.sql:/docker-entrypoint-initdb.d/db_create.sql
-      - ./resource/pokemon-table-data.csv:/docker-entrypoint-initdb.d/pokemon-table-data.csv
+      - ./resource/:/docker-entrypoint-initdb.d/
     
     
 
