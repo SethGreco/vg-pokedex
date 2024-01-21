@@ -16,11 +16,11 @@ async def retreive_all_pokemon(request: Request):
                 await cur.execute("""SELECT * FROM pokemon""")
                 results = await cur.fetchall()
                 pokemon_list = [Pokemon(number=pokemon[0],
-                                        name=pokemon[1], 
-                                        species=pokemon[2], 
-                                        height=inches_to_feet(pokemon[3]), 
-                                        weight=pokemon[4], 
-                                        description=pokemon[5], 
+                                        name=pokemon[1],
+                                        species=pokemon[2],
+                                        height=inches_to_feet(pokemon[3]),
+                                        weight=pokemon[4],
+                                        description=pokemon[5],
                                         area=pokemon[6]) for pokemon in results]
                 return pokemon_list
     except Exception as e:
