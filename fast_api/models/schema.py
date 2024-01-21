@@ -7,9 +7,9 @@ class Pokemon(BaseModel):
     name: str
     species: str
     height: str
-    weight: Optional[float] 
-    description: Optional[str] 
-    area: Optional[str] 
+    weight: Optional[float]
+    description: Optional[str]
+    area: Optional[str]
 
 
 class PokemonShort(BaseModel):
