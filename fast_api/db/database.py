@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from ..config.config import settings
 
 
-
 def build_connection_string():
     return f"""
     dbname={settings.POSTGRES_DB}
@@ -14,9 +13,9 @@ def build_connection_string():
     port={settings.POSTGRES_PORT}
     """
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.async_pool = AsyncConnectionPool(conninfo=build_connection_string())
     yield
     await app.async_pool.close()
-        

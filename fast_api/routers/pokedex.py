@@ -8,7 +8,6 @@ router = APIRouter(prefix="/pokedex",
                    responses={500: {"model": Message}})
 
 
-
 @router.get("", summary="Get all pokemon", response_model=List[Pokemon])
 async def retreive_all_pokemon(request: Request):
     try:
@@ -25,12 +24,12 @@ async def retreive_all_pokemon(request: Request):
                                         area=pokemon[6]) for pokemon in results]
                 return pokemon_list
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
-        
-        
-  
+
+
 @router.get("/{number}", summary="Get single pokemon by number", response_model=Pokemon, responses={404: {"model": Message}})
-async def retreive_pokemon_by_number(number:int , request: Request):
+async def retreive_pokemon_by_number(number: int, request: Request):
     try:
         async with request.app.async_pool.connection() as conn:
             async with conn.cursor() as cur:
@@ -38,12 +37,12 @@ async def retreive_pokemon_by_number(number:int , request: Request):
                 results = await cur.fetchone()
 
                 pokemon = Pokemon(number=results[0],
-                                        name=results[1], 
-                                        species=results[2], 
-                                        height=inches_to_feet(results[3]), 
-                                        weight=results[4], 
-                                        description=results[5], 
-                                        area=results[6])
+                                  name=results[1],
+                                  species=results[2],
+                                  height=inches_to_feet(results[3]),
+                                  weight=results[4],
+                                  description=results[5],
+                                  area=results[6])
                 return pokemon
     except TypeError as te:
         print(te)
@@ -51,24 +50,22 @@ async def retreive_pokemon_by_number(number:int , request: Request):
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
-    
-        
 
 
 @router.get("/name/{name}", summary="Get single pokemon by name", response_model=Pokemon, responses={404: {"model": Message}})
-async def retreive_pokemon_by_name(name:str , request: Request):
+async def retreive_pokemon_by_name(name: str, request: Request):
     try:
         async with request.app.async_pool.connection() as conn:
             async with conn.cursor() as cur:
                 await cur.execute("""SELECT * FROM pokemon WHERE name ILIKE %s""", (name,), prepare=True)
                 results = await cur.fetchone()
                 pokemon = Pokemon(number=results[0],
-                                        name=results[1], 
-                                        species=results[2], 
-                                        height=inches_to_feet(results[3]), 
-                                        weight=results[4], 
-                                        description=results[5], 
-                                        area=results[6])
+                                  name=results[1],
+                                  species=results[2],
+                                  height=inches_to_feet(results[3]),
+                                  weight=results[4],
+                                  description=results[5],
+                                  area=results[6])
                 return pokemon
     except TypeError as te:
         print(te)
