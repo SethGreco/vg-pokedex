@@ -31,4 +31,4 @@ archive.zip
 
 resource/
 scripts/
-.env
+*.env
